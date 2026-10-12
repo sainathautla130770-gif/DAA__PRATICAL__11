@@ -1,0 +1,37 @@
+
+INF = float('inf')
+
+n = int(input("Enter number of vertices: "))
+
+print("Enter the adjacency matrix (use -1 if no edge exists):")
+
+dist = []
+
+for i in range(n):
+    row = list(map(int, input().split()))
+
+    for j in range(n):
+        if row[j] == -1:
+            row[j] = INF
+
+    dist.append(row)
+
+# Floyd-Warshall Algorithm
+for k in range(n):
+    for i in range(n):
+        for j in range(n):
+            dist[i][j] = min(
+                dist[i][j],
+                dist[i][k] + dist[k][j]
+            )
+
+# Print shortest distance matrix
+print("\nShortest distance matrix:")
+
+for i in range(n):
+    for j in range(n):
+        if dist[i][j] == INF:
+            print("INF", end="\t")
+        else:
+            print(int(dist[i][j]), end="\t")
+    print()
